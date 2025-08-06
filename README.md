@@ -4,6 +4,5 @@
 
 ```bash
 npm install less -g
-cd dist/css
-lessc theme.less theme.min.css
+lessc dist/css/theme.less dist/css/theme.min.css
 ```

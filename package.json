@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@joinforma/backend": "^8.142.2"
+  }
+}

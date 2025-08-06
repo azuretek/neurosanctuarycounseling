@@ -518,7 +518,6 @@ header .header-holder .menu-holder .primary-menu li a {
   min-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 .services-section .box p,
 .services-section .box h3 {
