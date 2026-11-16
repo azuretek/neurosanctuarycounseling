@@ -150,9 +150,6 @@
 .services-section .service-tile.is-open .service-more {
     opacity: 1;
     padding: 6px;
-    /* Closed, the badge lets taps through to the tile; open, it is the close button. */
-    pointer-events: auto;
-    cursor: pointer;
 }
 
 .services-section .service-tile.is-open .service-more-label {
@@ -164,7 +161,7 @@
 }
 
 @media (hover: hover) {
-    .services-section .service-tile:not(.is-open):hover .service-more {
+    .services-section .service-tile:not(.is-open):not(.is-dismissed):hover .service-more {
         opacity: 0;
     }
 }
@@ -181,11 +178,11 @@
 }
 
 @media (hover: hover) {
-    .services-section .service-tile:hover .service-art {
+    .services-section .service-tile:not(.is-dismissed):hover .service-art {
         opacity: 0;
     }
 
-    .services-section .service-tile:hover .service-copy {
+    .services-section .service-tile:not(.is-dismissed):hover .service-copy {
         opacity: 1;
         visibility: visible;
         transition: opacity 0.35s ease, visibility 0s;

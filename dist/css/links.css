@@ -1,0 +1,19 @@
+/*
+ * Links inside body copy (paragraphs, content lists, the contact details)
+ * read as links in the brand green with no underline, and turn coral on
+ * hover. The theme forces every link's hover to green with !important, so
+ * the hover here has to be !important too or it never shows. Menus and
+ * buttons have their own rules and are not matched.
+ */
+
+:is(p, dd, .accordion-body li, .service-copy li, .contact-crisis li) a:not([class]),
+:is(p, dd, .accordion-body li, .service-copy li, .contact-crisis li) a:not([class]):visited {
+    color: #266058;
+    text-decoration: none;
+}
+
+:is(p, dd, .accordion-body li, .service-copy li, .contact-crisis li) a:not([class]):hover,
+:is(p, dd, .accordion-body li, .service-copy li, .contact-crisis li) a:not([class]):focus-visible {
+    color: #F88A6E !important;
+    text-decoration: none;
+}

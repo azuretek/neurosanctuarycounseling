@@ -1,0 +1,112 @@
+/*
+ * The contact section: the ways to reach Ky, peer support lines, and under
+ * them the licence a client can verify.
+ */
+
+footer .contact-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px 32px;
+    margin: 32px 0 0;
+}
+
+footer .contact-details dt {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #F88A6E;
+}
+
+footer .contact-details dd {
+    font-family: "DM Sans", sans-serif;
+    color: #252525;
+    margin: 6px 0 0;
+    overflow-wrap: anywhere;
+}
+
+footer .contact-details address {
+    margin: 0;
+    font-style: normal;
+}
+
+footer .contact-details .nowrap {
+    white-space: nowrap;
+}
+
+footer .contact-details > div {
+    padding: 14px 16px;
+    border-left: 2px solid rgba(38, 96, 88, 0.35);
+    border-radius: 0 6px 6px 0;
+    background-color: rgba(38, 96, 88, 0.06);
+}
+
+footer .contact-crisis {
+    margin-top: 24px;
+    padding: 20px 24px;
+    border-left: 4px solid #E5623F;
+    border-radius: 0 6px 6px 0;
+    background-color: rgba(248, 138, 110, 0.22);
+    color: #252525;
+}
+
+footer .contact-crisis strong {
+    color: #B5452A;
+}
+
+footer .contact-crisis p {
+    margin-bottom: 10px;
+}
+
+footer .contact-crisis ul {
+    margin: 0;
+}
+
+footer .contact-crisis li:last-child {
+    margin-bottom: 0;
+}
+
+footer .contact-block {
+    padding: 28px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+/* The licence shares the contact box; a thin rule sets it apart from the support note. */
+footer .license-block {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(38, 96, 88, 0.2);
+}
+
+footer .contact-block .contact-details {
+    margin-top: 24px;
+}
+
+footer .license-block h3 {
+    font-family: "Roboto Slab", serif;
+    font-weight: 700;
+    font-size: clamp(24px, 6vw, 28px);
+    color: #252525;
+    margin: 0;
+}
+
+footer .contact-block .section-title h2::after,
+footer .license-block h3::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    margin-top: 12px;
+    border-radius: 2px;
+    background-color: #F88A6E;
+}
+
+footer .license-block .contact-details {
+    margin-top: 24px;
+}
+
+footer .license-block .contact-details > div {
+    background-color: rgba(38, 96, 88, 0.05);
+}

@@ -75,6 +75,7 @@
     const Navigation = {
         init: function() {
             this.bindSmoothScroll();
+            $(window).on('load', this.scrollToInitialHash);
         },
 
         bindSmoothScroll: function() {
@@ -94,6 +95,12 @@
                 
                 if (target.length) {
                     event.preventDefault();
+                    if ($('header').hasClass('active')) {
+                        // The open phone menu makes the header tall; close it so the stop is measured against the real header.
+                        $('.phone-menu').removeClass('change');
+                        $('header').removeClass('active');
+                        $('.menu-holder').stop(true, true).hide();
+                    }
                     Navigation.animateScroll(target);
                 }
             }
@@ -104,21 +111,68 @@
             return target.length ? target : $('[name=' + hash.slice(1) + ']');
         },
 
+        // Land a section's own headline just under the fixed header. The
+        // section box starts well above its headline (top padding), and the
+        // header shrinks into its fixed style through a CSS transition once
+        // the page scrolls, so the stop is measured from the heading's layout
+        // position (offsetTop ignores the fade-in transforms) against the
+        // header's FINAL scrolled height, and re-checked once the scroll lands.
+        headingFor: function(target) {
+            const $heading = $(target).find('h1, h2').first();
+            return ($heading.length ? $heading : $(target)).get(0);
+        },
+
+        scrolledHeaderHeight: function() {
+            const header = document.querySelector('header');
+            if (!header) return CONFIG.scroll.offset;
+            const wasScrolled = header.classList.contains('scrolled');
+            header.style.transition = 'none';
+            header.classList.add('scrolled');
+            const height = header.offsetHeight;
+            if (!wasScrolled) header.classList.remove('scrolled');
+            void header.offsetHeight;
+            header.style.transition = '';
+            return height;
+        },
+
+        stopFor: function(target) {
+            let top = 0;
+            for (let el = Navigation.headingFor(target); el; el = el.offsetParent) top += el.offsetTop;
+            return Math.max(0, top - Navigation.scrolledHeaderHeight() - 24);
+        },
+
+        // Native smooth scrolling, because Bootstrap turns on CSS smooth
+        // scrolling and a jQuery scrollTop animation fights it frame by frame.
         animateScroll: function(target) {
-            $('html, body').animate({
-                scrollTop: target.offset().top - CONFIG.scroll.offset
-            }, CONFIG.animation.duration, function() {
+            let done = false;
+            const settle = function() {
+                if (done) return;
+                done = true;
+                window.removeEventListener('scrollend', settle);
+                const stop = Navigation.stopFor(target);
+                if (Math.abs(window.scrollY - stop) > 2) window.scrollTo({ top: stop, behavior: 'auto' });
+                if (history.replaceState) history.replaceState(null, '', '#' + target.attr('id'));
                 Navigation.setFocus(target);
-            });
+            };
+            window.addEventListener('scrollend', settle);
+            setTimeout(settle, 1200);
+            window.scrollTo({ top: Navigation.stopFor(target), behavior: 'smooth' });
+        },
+
+        // A page opened with a hash (a shared link to #contact) gets the same stop.
+        scrollToInitialHash: function() {
+            if (!location.hash || location.hash === '#') return;
+            const target = Navigation.getScrollTarget(location.hash);
+            if (target.length) window.scrollTo(0, Navigation.stopFor(target));
         },
 
         setFocus: function(target) {
             const $target = $(target);
-            $target.focus();
-            
+            $target.get(0).focus({ preventScroll: true });
+
             if (!$target.is(':focus')) {
                 $target.attr('tabindex', '-1');
-                $target.focus();
+                $target.get(0).focus({ preventScroll: true });
             }
         }
     };

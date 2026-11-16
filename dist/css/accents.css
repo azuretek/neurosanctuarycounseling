@@ -1,0 +1,23 @@
+/*
+ * Decorative accents (leaves, lightning, star, bird) always sit behind the
+ * copy. They are absolutely positioned with z-index 0, and a positioned
+ * element paints over in-flow text that has no z-index, which is how the
+ * About leaf ended up across a paragraph. Each section that holds accents
+ * becomes its own stacking context, so z-index -1 puts them behind its text
+ * but still in front of the section's own background.
+ */
+
+.about-section,
+.faq-section {
+    position: relative;
+    isolation: isolate;
+}
+
+.about-section .leaf-img,
+.about-section .lightning-img,
+.about-section .star-icon,
+.about-section .bird-icon,
+.faq-section .icons-holder img {
+    z-index: -1 !important;
+    pointer-events: none;
+}
