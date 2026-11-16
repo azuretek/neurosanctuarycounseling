@@ -13,23 +13,32 @@
         tile.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
+    // Closing a tile under the mouse would leave hover showing the details,
+    // so a click-close also suppresses the hover reveal until the pointer leaves.
+    function close(tile) {
+        setOpen(tile, false);
+        tile.classList.add('is-dismissed');
+    }
+
     tiles.forEach(function (tile) {
-        tile.addEventListener('click', function (event) {
-            // The close mark on an open tile always closes it. Touch screens need
-            // this; on a pointer device hover keeps the details showing anyway.
-            if (event.target.closest('.service-more') && tile.classList.contains('is-open')) {
-                setOpen(tile, false);
+        // A click or tap anywhere on the tile opens it, and anywhere again closes it.
+        tile.addEventListener('click', function () {
+            // Finishing a text selection inside the details is not a request to close.
+            var selection = window.getSelection && window.getSelection();
+            if (selection && !selection.isCollapsed && tile.contains(selection.anchorNode)) return;
+            if (tile.classList.contains('is-open')) {
+                close(tile);
                 return;
             }
-            // Let a scroll or text selection inside open details stay open.
-            if (event.target.closest('.service-copy') && tile.classList.contains('is-open')) {
-                return;
-            }
-            var open = !tile.classList.contains('is-open');
             tiles.forEach(function (other) {
                 if (other !== tile) setOpen(other, false);
             });
-            setOpen(tile, open);
+            tile.classList.remove('is-dismissed');
+            setOpen(tile, true);
+        });
+
+        tile.addEventListener('mouseleave', function () {
+            tile.classList.remove('is-dismissed');
         });
 
         tile.addEventListener('keydown', function (event) {
@@ -37,7 +46,7 @@
                 event.preventDefault();
                 setOpen(tile, !tile.classList.contains('is-open'));
             } else if (event.key === 'Escape') {
-                setOpen(tile, false);
+                close(tile);
             }
         });
     });
