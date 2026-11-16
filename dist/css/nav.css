@@ -31,3 +31,31 @@
         align-self: center;
     }
 }
+
+/*
+ * The header stays exactly where and how big it is while the page scrolls.
+ * The theme switched it from absolute to fixed and shrank its padding once
+ * the page moved (desktop links 36px to 26px, the phone header 20/30px to
+ * 10px), which read as the whole bar shifting. It is now fixed from the
+ * start, which costs no layout since an absolute header took no space
+ * either, and the scrolled state only adds the shadow.
+ */
+header,
+header.scrolled {
+    position: fixed;
+}
+
+header.scrolled .header-holder .menu-holder .primary-menu li:not(.nav-btn) a {
+    padding-top: 36px;
+    padding-bottom: 36px;
+}
+
+@media (max-width: 1199.98px) {
+    header.scrolled .header-holder {
+        padding: 20px 0 30px;
+    }
+
+    header.scrolled .header-holder .menu-holder .primary-menu li:not(.nav-btn) a {
+        padding: 10px;
+    }
+}
