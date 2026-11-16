@@ -15,6 +15,12 @@
 
     tiles.forEach(function (tile) {
         tile.addEventListener('click', function (event) {
+            // The close mark on an open tile always closes it. Touch screens need
+            // this; on a pointer device hover keeps the details showing anyway.
+            if (event.target.closest('.service-more') && tile.classList.contains('is-open')) {
+                setOpen(tile, false);
+                return;
+            }
             // Let a scroll or text selection inside open details stay open.
             if (event.target.closest('.service-copy') && tile.classList.contains('is-open')) {
                 return;

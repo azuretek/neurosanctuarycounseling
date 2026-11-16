@@ -133,6 +133,9 @@
 .services-section .service-tile.is-open .service-more {
     opacity: 1;
     padding: 6px;
+    /* Closed, the badge lets taps through to the tile; open, it is the close button. */
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .services-section .service-tile.is-open .service-more-label {
