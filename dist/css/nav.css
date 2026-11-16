@@ -1,0 +1,28 @@
+/*
+ * The menu links fill the header's full height on desktop, so the green
+ * highlight bar at the top of a link always touches the top of the page.
+ * Scrolled, the links shrink to 76px while the logo holds the header at
+ * 92px, and the centred menu dropped 8px below the top edge. The Client
+ * Portal button keeps its own size and stays centred.
+ */
+@media (min-width: 1200px) {
+    header .header-holder .menu-holder,
+    header .header-holder .menu-holder .primary-menu {
+        align-self: stretch;
+        display: flex;
+        align-items: stretch;
+    }
+
+    header .header-holder .menu-holder .primary-menu li {
+        display: flex;
+    }
+
+    header .header-holder .menu-holder .primary-menu li:not(.nav-btn) a {
+        display: flex;
+        align-items: center;
+    }
+
+    header .header-holder .menu-holder .primary-menu li.nav-btn {
+        align-self: center;
+    }
+}
