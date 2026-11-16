@@ -1,0 +1,30 @@
+/*
+ * Content lists across the site use coral petal bullets: the brand accent in
+ * the leaf shape the illustrations use. Navigation and contact lists are menus,
+ * not content, so they are left alone.
+ */
+
+.services-section .service-copy ul,
+.faq-section .accordion-body ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.services-section .service-copy li,
+.faq-section .accordion-body li {
+    position: relative;
+    margin-bottom: 7px;
+    padding-left: 22px;
+}
+
+.services-section .service-copy li::before,
+.faq-section .accordion-body li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.4em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50% 0 50% 0;
+    background-color: #F88A6E;
+}

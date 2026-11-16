@@ -52,27 +52,10 @@
 
 .services-section .service-copy ul {
     margin: 0;
-    padding-left: 0;
-    list-style: none;
 }
 
-/* Coral petal bullets: the brand accent in the leaf shape used by the illustrations. */
 .services-section .service-copy li {
-    position: relative;
-    margin-bottom: 7px;
-    padding-left: 22px;
     color: #252525;
-}
-
-.services-section .service-copy li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.4em;
-    width: 10px;
-    height: 10px;
-    border-radius: 50% 0 50% 0;
-    background-color: #F88A6E;
 }
 
 /* A thin green scrollbar with no track, in place of the grey browser default. */
