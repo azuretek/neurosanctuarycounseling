@@ -1,0 +1,45 @@
+/*
+ * Button and link hover states. Loaded after theme.min.css.
+ *
+ * The theme turned every hovered link #266058 with !important, which also
+ * hit the buttons and left dark green text on their dark hover gradient. Buttons
+ * now fill with the brand coral on hover, with deep green text, and the
+ * gradient overlay is switched off.
+ */
+
+.c-btn,
+.o-btn,
+header .header-holder .menu-holder .primary-menu li.nav-btn a {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.c-btn:hover,
+.c-btn:focus-visible,
+.o-btn:hover,
+.o-btn:focus-visible,
+header .header-holder .menu-holder .primary-menu li.nav-btn a:hover,
+header .header-holder .menu-holder .primary-menu li.nav-btn a:focus-visible {
+    background-color: #F88A6E !important;
+    color: #153632 !important;
+}
+
+.c-btn:hover::before,
+.o-btn:hover::before,
+header .header-holder .menu-holder .primary-menu li.nav-btn a:hover::before {
+    opacity: 0 !important;
+}
+
+/* The light-on-dark button keeps a light arrow circle; on coral it goes deep green. */
+.o-btn:hover::after,
+.o-btn:focus-visible::after {
+    background-color: #153632;
+}
+
+/* FAQ questions turned a pale tan on hover, which was hard to read; match the menu links. */
+.faq-section .accordion-button:hover {
+    color: #266058 !important;
+}
+
+.faq-section .accordion-button:hover::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23266058'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
