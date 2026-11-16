@@ -1,43 +1,16 @@
 /*
- * The contact section: three cards (how to reach Ky, how sessions work, and
- * the licence a client can verify) and a crisis line underneath.
+ * The contact section: the ways to reach Ky, peer support lines, and under
+ * them the licence a client can verify.
  */
 
-footer .contact-lede {
-    max-width: 640px;
-    margin-top: 12px;
-    font-size: clamp(16px, 4.5vw, 18px);
-    color: #252525;
-}
-
-footer .contact-grid {
+footer .contact-details {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-    margin-top: 36px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px 32px;
+    margin: 32px 0 0;
 }
 
-footer .contact-card {
-    background: #FFFFFF;
-    border-top: 4px solid #266058;
-    border-radius: 12px;
-    padding: 28px 28px 20px;
-    box-shadow: 0 6px 24px rgba(38, 96, 88, 0.08);
-}
-
-footer .contact-card h3 {
-    font-family: "Roboto Slab", serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: #266058;
-    margin-bottom: 18px;
-}
-
-footer .contact-card dl {
-    margin: 0;
-}
-
-footer .contact-card dt {
+footer .contact-details dt {
     font-family: "DM Sans", sans-serif;
     font-weight: 600;
     font-size: 13px;
@@ -46,31 +19,31 @@ footer .contact-card dt {
     color: #F88A6E;
 }
 
-footer .contact-card dd {
+footer .contact-details dd {
     font-family: "DM Sans", sans-serif;
     color: #252525;
-    margin: 4px 0 16px;
+    margin: 6px 0 0;
     overflow-wrap: anywhere;
 }
 
-footer .contact-card address {
+footer .contact-details address {
     margin: 0;
     font-style: normal;
 }
 
-footer .contact-card a,
+footer .contact-details a,
 footer .contact-crisis a {
     color: #266058;
     text-decoration: underline;
     text-underline-offset: 3px;
 }
 
-footer .contact-card a:hover,
+footer .contact-details a:hover,
 footer .contact-crisis a:hover {
     color: #F88A6E;
 }
 
-footer .contact-card .nowrap {
+footer .contact-details .nowrap {
     white-space: nowrap;
 }
 
@@ -83,8 +56,35 @@ footer .contact-crisis {
     color: #252525;
 }
 
-@media (max-width: 991.98px) {
-    footer .contact-grid {
-        grid-template-columns: 1fr;
-    }
+footer .contact-crisis p {
+    margin-bottom: 10px;
+}
+
+footer .contact-crisis ul {
+    margin: 0;
+}
+
+footer .contact-crisis li:last-child {
+    margin-bottom: 0;
+}
+
+footer .license-block {
+    margin-top: 40px;
+    padding: 28px 28px 24px;
+    background: #FFFFFF;
+    border-top: 4px solid #266058;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(38, 96, 88, 0.08);
+}
+
+footer .license-block h3 {
+    font-family: "Roboto Slab", serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #266058;
+    margin: 0;
+}
+
+footer .license-block .contact-details {
+    margin-top: 20px;
 }

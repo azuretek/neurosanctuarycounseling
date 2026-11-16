@@ -75,6 +75,7 @@
     const Navigation = {
         init: function() {
             this.bindSmoothScroll();
+            $(window).on('load', this.scrollToInitialHash);
         },
 
         bindSmoothScroll: function() {
@@ -94,6 +95,12 @@
                 
                 if (target.length) {
                     event.preventDefault();
+                    if ($('header').hasClass('active')) {
+                        // The open phone menu makes the header tall; close it so the stop is measured against the real header.
+                        $('.phone-menu').removeClass('change');
+                        $('header').removeClass('active');
+                        $('.menu-holder').stop(true, true).hide();
+                    }
                     Navigation.animateScroll(target);
                 }
             }
@@ -104,21 +111,50 @@
             return target.length ? target : $('[name=' + hash.slice(1) + ']');
         },
 
+        // Land a section's own headline just under the fixed header. The
+        // section box starts well above its headline (top padding), the
+        // header changes height once the page scrolls, and the fade-in
+        // animations translate headings, so the stop is measured from the
+        // heading's layout position (offsetTop ignores transforms) and
+        // re-measured once the scroll lands.
+        headingFor: function(target) {
+            const $heading = $(target).find('h1, h2').first();
+            return ($heading.length ? $heading : $(target)).get(0);
+        },
+
+        stopFor: function(target) {
+            let top = 0;
+            for (let el = Navigation.headingFor(target); el; el = el.offsetParent) top += el.offsetTop;
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.getBoundingClientRect().height : CONFIG.scroll.offset;
+            return Math.max(0, top - headerHeight - 24);
+        },
+
         animateScroll: function(target) {
-            $('html, body').animate({
-                scrollTop: target.offset().top - CONFIG.scroll.offset
-            }, CONFIG.animation.duration, function() {
+            $('html, body').stop(true).animate({
+                scrollTop: Navigation.stopFor(target)
+            }, CONFIG.animation.duration, 'swing').promise().done(function() {
+                const settled = Navigation.stopFor(target);
+                if (Math.abs($(window).scrollTop() - settled) > 2) window.scrollTo(0, settled);
+                if (history.replaceState) history.replaceState(null, '', '#' + target.attr('id'));
                 Navigation.setFocus(target);
             });
         },
 
+        // A page opened with a hash (a shared link to #contact) gets the same stop.
+        scrollToInitialHash: function() {
+            if (!location.hash || location.hash === '#') return;
+            const target = Navigation.getScrollTarget(location.hash);
+            if (target.length) window.scrollTo(0, Navigation.stopFor(target));
+        },
+
         setFocus: function(target) {
             const $target = $(target);
-            $target.focus();
-            
+            $target.get(0).focus({ preventScroll: true });
+
             if (!$target.is(':focus')) {
                 $target.attr('tabindex', '-1');
-                $target.focus();
+                $target.get(0).focus({ preventScroll: true });
             }
         }
     };
