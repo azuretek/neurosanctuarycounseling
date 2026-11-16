@@ -184,41 +184,11 @@
     }
 }
 
-/*
- * Scroll peek: the first time a tile scrolls into view, the art slides down a
- * little to show the first lines of the details, then settles back. It hints
- * that there is more behind the picture without hiding the art for good.
- */
-.services-section .service-art {
-    transition: opacity 0.35s ease, transform 0.6s ease;
-}
-
-.services-section .service-tile.is-peeking .service-art {
-    transform: translateY(42%);
-}
-
-/* Only the strip the art uncovers shows text, fading out at its lower edge, so the peek never prints over the picture. */
-.services-section .service-tile.is-peeking .service-copy {
-    flex: 0 0 auto;
-    max-height: 44%;
-    opacity: 1;
-    visibility: visible;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
-    mask-image: linear-gradient(to bottom, #000 55%, transparent);
-    /* Wait for the art to slide clear before the text fades in. */
-    transition: opacity 0.3s ease 0.35s, visibility 0s;
-}
-
 @media (prefers-reduced-motion: reduce) {
     .services-section .service-art,
     .services-section .service-copy,
     .services-section .service-more,
     .services-section .service-more-icon {
         transition: none;
-    }
-
-    .services-section .service-tile.is-peeking .service-art {
-        transform: none;
     }
 }
