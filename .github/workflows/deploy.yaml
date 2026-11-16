@@ -16,6 +16,19 @@ jobs:
           - name: Checkout
             uses: actions/checkout@v4
 
+          # GitHub Pages lets browsers keep every file for 10 minutes, so after a
+          # deploy a browser could pair the new page with an old stylesheet.
+          # Stamping each local file link with the commit makes every deploy's
+          # files new URLs, while unchanged deploys still reuse the cache.
+          - name: Stamp file links with the commit
+            run: |
+              v="${GITHUB_SHA::7}"
+              sed -E -i "s#((src|href)=\"|url\(')(\./dist/[^\"'?]+)#\1\3?v=$v#g" index.html
+              left=$(grep -oE "\./dist/[^\"'?]+[\"']" index.html | wc -l)
+              stamped=$(grep -oE "\./dist/[^\"'?]+\?v=$v" index.html | wc -l)
+              echo "stamped $stamped file links with v=$v, $left left unstamped"
+              test "$left" -eq 0 && test "$stamped" -gt 0
+
           - uses: actions/upload-pages-artifact@v3
             with:
               path: .
