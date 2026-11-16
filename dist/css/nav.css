@@ -13,6 +13,11 @@
         align-items: stretch;
     }
 
+    /* The list keeps the full width it had, so the auto margins still centre the links and push Client Portal right. */
+    header .header-holder .menu-holder .primary-menu {
+        flex: 1 1 auto;
+    }
+
     header .header-holder .menu-holder .primary-menu li {
         display: flex;
     }
